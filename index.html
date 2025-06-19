@@ -28,12 +28,10 @@
     }
 
     main {
-      max-width: 800px;
-      margin: auto;
-      padding: 20px;
+      width: 100%;
+      padding: 40px;
       background-color: #182a45;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      box-sizing: border-box;
     }
 
     label {
@@ -44,7 +42,6 @@
 
     input[type="text"],
     input[type="date"],
-    input[type="tel"],
     textarea {
       width: 100%;
       padding: 10px;
@@ -52,6 +49,7 @@
       border-radius: 6px;
       border: none;
       font-size: 14px;
+      box-sizing: border-box;
     }
 
     textarea {
@@ -59,7 +57,7 @@
     }
 
     .section, .laws {
-      margin-top: 25px;
+      margin-top: 30px;
     }
 
     .section h2,
@@ -73,19 +71,18 @@
     .laws label {
       font-weight: normal;
       background: #1f2f4a;
-      padding: 8px;
+      padding: 12px;
       border-radius: 6px;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
       display: flex;
-      align-items: center;
-      gap: 10px;
+      align-items: flex-start;
+      gap: 12px;
       cursor: pointer;
     }
 
     input[type="checkbox"],
     input[type="radio"] {
       margin: 0;
-      flex-shrink: 0;
       transform: scale(1.2);
     }
 
@@ -94,9 +91,9 @@
       color: #0e1a2b;
       border: none;
       border-radius: 8px;
-      padding: 12px 20px;
+      padding: 14px 24px;
       font-size: 16px;
-      margin-top: 20px;
+      margin-top: 30px;
       cursor: pointer;
       transition: 0.2s;
     }
@@ -108,43 +105,23 @@
     #output {
       white-space: pre-wrap;
       background-color: #0e1a2b;
-      padding: 15px;
-      margin-top: 25px;
+      padding: 20px;
+      margin-top: 30px;
       border-radius: 8px;
       border: 1px solid #f1c40f;
       font-family: monospace;
     }
 
+    .law-text {
+      display: flex;
+      flex-direction: column;
+    }
+
     .penalty {
-  display: block;
-  font-size: 13px;
-  color: #bbb;
-  margin-top: 4px;
-  margin-left: 26px; /* trochu odsazení kvůli checkboxu */
-}
-
-.laws label {
-  font-weight: normal;
-  background: #1f2f4a;
-  padding: 8px;
-  border-radius: 6px;
-  margin-bottom: 5px;
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  cursor: pointer;
-}
-
-.law-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.penalty {
-  font-size: 13px;
-  color: #bbb;
-  margin-top: 4px;
-}
+      font-size: 13px;
+      color: #bbb;
+      margin-top: 4px;
+    }
   </style>
 </head>
 <body>
@@ -171,8 +148,14 @@
 
     <div class="section">
       <h2>Konečné řešení</h2>
-      <label><input type="radio" name="crimeType" value="Pokuta"> Pokuta - Může být uhrazena (viny se nepřiznává, jen akceptuje pokutu), nebo se řidič může hájit u soudu.</label>
-      <label><input type="radio" name="crimeType" value="Varování"> Varování - V méně závažných případech policista nevydá pokutu, jen upozornění.</label>
+      <label>
+        <input type="radio" name="crimeType" value="Pokuta">
+        Pokuta - Může být uhrazena (viny se nepřiznává, jen akceptuje pokutu), nebo se řidič může hájit u soudu.
+      </label>
+      <label>
+        <input type="radio" name="crimeType" value="Varování">
+        Varování - V méně závažných případech policista nevydá pokutu, jen upozornění.
+      </label>
     </div>
 
     <div class="laws">
@@ -189,11 +172,9 @@
         <input type="checkbox" value="§22500 VEH – Nezákonné parkování">
         <div class="law-text">
           <span>§22500 VEH – Nezákonné parkování: Řidič nesmí zastavit nebo zaparkovat vozidlo v zakázané zóně, včetně před hydrantem, na přechodu pro chodce nebo v křižovatce.</span>
-          <span class="penalty">Trest - $50 - $150 pokuta / odtažení vozdila</span>
+          <span class="penalty">Trest - $50 - $150 pokuta / odtažení vozidla</span>
         </div>
       </label>
-
-
     </div>
 
     <button onclick="generateReport()">Generovat zprávu</button>
