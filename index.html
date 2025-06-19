@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LSPD Incident Report Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #0e1a2b;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #1f2f4a;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 4px solid #f1c40f;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #f1c40f;
+    }
+
+    main {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      background-color: #182a45;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="tel"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: none;
+      font-size: 14px;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    .section, .laws {
+      margin-top: 25px;
+    }
+
+    .section h2,
+    .laws h2 {
+      margin-bottom: 10px;
+      font-size: 20px;
+      color: #f1c40f;
+    }
+
+    .section label,
+    .laws label {
+      font-weight: normal;
+      background: #1f2f4a;
+      padding: 8px;
+      border-radius: 6px;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      margin: 0;
+      flex-shrink: 0;
+      transform: scale(1.2);
+    }
+
+    button {
+      background-color: #f1c40f;
+      color: #0e1a2b;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background-color: #d4ac0d;
+    }
+
+    #output {
+      white-space: pre-wrap;
+      background-color: #0e1a2b;
+      padding: 15px;
+      margin-top: 25px;
+      border-radius: 8px;
+      border: 1px solid #f1c40f;
+      font-family: monospace;
+    }
+
+    .penalty {
+  display: block;
+  font-size: 13px;
+  color: #bbb;
+  margin-top: 4px;
+  margin-left: 26px; /* trochu odsazení kvůli checkboxu */
+}
+
+.laws label {
+  font-weight: normal;
+  background: #1f2f4a;
+  padding: 8px;
+  border-radius: 6px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.law-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.penalty {
+  font-size: 13px;
+  color: #bbb;
+  margin-top: 4px;
+}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>TRAFFIC REPORT</h1>
+  </header>
+
+  <main>
+    <label>Jméno a příjmení:
+      <input type="text" id="suspectName">
+    </label>
+
+    <label>DOB podezřelého:
+      <input type="date" id="suspectDOB">
+    </label>
+
+    <label>Popis události:
+      <textarea id="eventDesc"></textarea>
+    </label>
+
+    <label>Zastavující strážník:
+      <input type="text" id="arrestingOfficer">
+    </label>
+
+    <div class="section">
+      <h2>Crime Type</h2>
+      <label><input type="radio" name="crimeType" value="Infraction"> Pokuta - Může být uhrazena (viny se nepřiznává, jen akceptuje pokutu), nebo se řidič může hájit u soudu.</label>
+      <label><input type="radio" name="crimeType" value="Misdemeanor"> Varování - V méně závažných případech policista nevydá pokutu, jen upozornění.</label>
+    </div>
+
+    <div class="laws">
+      <h2>Vehicle Code (VEH)</h2>
+      <label>
+        <input type="checkbox" value="§23152(a) – Řízení pod vlivem alkoholu nebo drog (DUI)">
+        <div class="law-text">
+          <span>§23152(a) – Řízení pod vlivem alkoholu nebo drog (DUI): Je nezákonné, aby jakákoli osoba řídila motorové vozidlo pod vlivem alkoholu, drog nebo jejich kombinace.</span>
+          <span class="penalty">Trest - Až 6 měsíců ve Státní věznici + $390 - $1.000 pokuta + Odebrání řidičského oprávnění na 6 měsíců.</span>
+        </div>
+      </label>
+
+      <label>
+        <input type="checkbox" value="§23153(a) – DUI způsobující zranění">
+        <div class="law-text">
+          <span>§23153(a) – DUI způsobující zranění: Je nezákonné, aby osoba pod vlivem alkoholu řídila vozidlo a současně spáchala jakýkoli protiprávní čin nebo zanedbala nějakou povinnost při řízení, což přímo způsobí tělesné zranění jiné osobě než řidiči.</span>
+          <span class="penalty">Trest - Misdemeanor: až 1 rok ve Státní věznici + $5.000 pokuta. Felony: až 4 roky ve Státní věznici + $5.000 pokuta + restutice oběti.</span>
+        </div>
+      </label>
+
+
+    </div>
+
+    <button onclick="generateReport()">Generovat zprávu</button>
+
+    <div id="output"></div>
+  </main>
+
+  <script>
+    function generateReport() {
+      const name = document.getElementById('suspectName').value;
+      const dob = document.getElementById('suspectDOB').value;
+      const eventDesc = document.getElementById('eventDesc').value;
+      const officer = document.getElementById('arrestingOfficer').value;
+      const crimeType = document.querySelector('input[name="crimeType"]:checked');
+      const checked = Array.from(document.querySelectorAll('.laws input:checked')).map(cb => cb.value);
+
+      let report = `--- LSPD TRAFFIC REPORT ---\n\n`;
+      report += `🕵️‍♂️ Jméno a příjmení: ${name}\n`;
+      report += `📅 Datum narození: ${dob}\n`;
+      report += `📄 Popis události:\n${eventDesc}\n\n`;
+      report += `👮 Zastavující strážník: ${officer}\n\n`;
+
+      if (crimeType) {
+        report += `🔍 Konečné řešení: ${crimeType.value}\n\n`;
+      }
+
+      report += `📚 Porušené zákony:\n`;
+      checked.forEach(l => report += `- ${l}\n\n`);
+
+      report += `${name} narozen/a ${dob} obdržela pokutu ve výši (DOPLNIT např. $350) z důvodu:\n`;
+      checked.forEach(l => report += `- ${l}\n`);
+
+      document.getElementById('output').textContent = report;
+    }
+  </script>
+</body>
+</html>
